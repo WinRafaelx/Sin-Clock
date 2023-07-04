@@ -1,0 +1,27 @@
+.Stop {
+  padding: 13px 35px;
+  color: #D8E7CA;
+  background-color: #3F4B36;
+  margin-right: 10px;
+  border-radius: 30px;
+  border: none;
+}
+
+.Stop:hover {
+  background-color: #2e7d32;
+  color: #f1f8e9;
+}
+
+.Start {
+  padding: 13px 35px;
+  color: #f1f8e9;
+  background-color: #689f38;
+  margin-right: 10px;
+  border-radius: 30px;
+  border: none;
+}
+
+.Start:hover {
+  background-color: #aed581;
+  color: white;
+}
