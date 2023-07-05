@@ -63,9 +63,9 @@ const Realtime = () => {
       ctx.fillText(today, 140, 250);
 
       // Time
-      ctx.font = "bolder 25px Courier New";
+      ctx.font = "bolder 28px Courier New";
       ctx.fillStyle = "#D8E7CA";
-      ctx.fillText(time + ":" + mil, 165, 280);
+      ctx.fillText(time, 185, 290);
     };
 
     const intervalId = setInterval(renderTime, 40);
