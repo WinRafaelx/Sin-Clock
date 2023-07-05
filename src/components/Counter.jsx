@@ -17,6 +17,21 @@ const showTime = (time) => {
   )
 };
 
+const showTime = (time) => {
+  let miliseconds = ("0" + (Math.floor(time / 10) % 100)).slice(-2);
+  let seconds = ("0" + (Math.floor(time / 1000) % 60)).slice(-2);
+  let minutes = ("0" + (Math.floor(time / 60000) % 60)).slice(-2);
+  let hours = ("0" + Math.floor(time / 3600000)).slice(-2);
+  if (hours[0] == "0") hours = hours.slice(1);
+  if (hours != "0") 
+    return (
+      <Typography variant="h3">{hours} : {minutes} : {seconds} . {miliseconds}`</Typography>
+    );
+  return (
+    <Typography variant="h3">{minutes} : {seconds} . {miliseconds}</Typography>
+  )
+};
+
 function Counter() {
   const [time, setTime] = useState(0);
   const [timerOn, setTimerOn] = useState(false);
@@ -52,8 +67,7 @@ function Counter() {
       <Box
         sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}
       >
-        {showTime(time)}
-        <h1>{time}</h1>
+        <Typography variant="h3">{showTime(time)}</Typography>
         <Box sx={{ mt: 1 }}>
           <button className="Stop" onClick={() => setTimerOn(false)}>
             <Typography
