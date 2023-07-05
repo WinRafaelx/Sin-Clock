@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
-import './Css/Counter.css'
+import { useStopwatch } from 'react-timer-hook';
+import "./Css/Counter.css";
 
 function Counter() {
   const [time, setTime] = useState(0);
-  const [hr, setHr] = useState(0);
-  const [min, setMin] = useState(0);
-  const [sec, setSec] = useState(0);
-  const [mil, setMil] = useState(0);
   const [timerOn, setTimerOn] = useState(false);
 
   useEffect(() => {
@@ -35,7 +32,7 @@ function Counter() {
     let minutes = ("0" + (Math.floor(time / 60000) % 60)).slice(-2);
     let hours = ("0" + Math.floor(time / 3600000)).slice(-2);
     if (hours[0] == "0") hours = hours.slice(1);
-    if (hours != "0")
+    if (hours != "0") 
       return `${hours} : ${minutes} : ${seconds} . ${miliseconds}`;
     return `${minutes} : ${seconds} : ${miliseconds}`;
   };
@@ -45,15 +42,29 @@ function Counter() {
       <Box
         sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}
       >
-        <Typography variant="h3">
-          {showTime(time)}
-        </Typography>
-        <Box sx={{mt: 1}}>
+        <Typography variant="h3">{showTime(time)}</Typography>
+        <Box sx={{ mt: 1 }}>
           <button className="Stop" onClick={() => setTimerOn(false)}>
-            <Typography sx={{fontWeight: 'bold', fontStyle: 'oblique', letterSpacing: 3 }}>Stop</Typography>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                fontStyle: "oblique",
+                letterSpacing: 3,
+              }}
+            >
+              Stop
+            </Typography>
           </button>
           <button className="Start" onClick={() => setTimerOn(true)}>
-            <Typography sx={{fontWeight: 'bold', fontStyle: 'oblique', letterSpacing: 3 }}>Start</Typography>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                fontStyle: "oblique",
+                letterSpacing: 3,
+              }}
+            >
+              Start
+            </Typography>
           </button>
         </Box>
 
