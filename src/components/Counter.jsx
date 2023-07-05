@@ -1,7 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
-import { useStopwatch } from 'react-timer-hook';
 import "./Css/Counter.css";
+
+const showTime = (time) => {
+  let miliseconds = ("0" + (Math.floor(time / 10) % 100)).slice(-2);
+  let seconds = ("0" + (Math.floor(time / 1000) % 60)).slice(-2);
+  let minutes = ("0" + (Math.floor(time / 60000) % 60)).slice(-2);
+  let hours = ("0" + Math.floor(time / 3600000)).slice(-2);
+  if (hours[0] == "0") hours = hours.slice(1);
+  if (hours != "0") 
+    return (
+      <Typography variant="h3">{hours} : {minutes} : {seconds} . {miliseconds}`</Typography>
+    );
+  return (
+    <Typography variant="h3">{minutes} : {seconds} . {miliseconds}</Typography>
+  )
+};
 
 function Counter() {
   const [time, setTime] = useState(0);
@@ -21,28 +35,24 @@ function Counter() {
 
   const toSeconds = (hr, min, sec) => hr * 3600 + min * 60 + sec * 1;
 
-  const addTime = (hr, min, sec) =>
-    setTime((prevTime) => prevTime + toSeconds(hr, min, sec) * 1000);
-  const subtractTime = (hr, min, sec) =>
-    setTime((prevTime) => prevTime - toSeconds(hr, min, sec) * 1000);
-
-  const showTime = (time) => {
-    let miliseconds = ("0" + (Math.floor(time / 10) % 100)).slice(-2);
-    let seconds = ("0" + (Math.floor(time / 1000) % 60)).slice(-2);
-    let minutes = ("0" + (Math.floor(time / 60000) % 60)).slice(-2);
-    let hours = ("0" + Math.floor(time / 3600000)).slice(-2);
-    if (hours[0] == "0") hours = hours.slice(1);
-    if (hours != "0") 
-      return `${hours} : ${minutes} : ${seconds} . ${miliseconds}`;
-    return `${minutes} : ${seconds} : ${miliseconds}`;
+  const addTime = (hr, min, sec) => {
+    const newTime = time + toSeconds(hr, min, sec) * 1000;
+    setTime(newTime);
   };
+  
+  const subtractTime = (hr, min, sec) => {
+    const newTime = time - toSeconds(hr, min, sec) * 1000;
+    setTime(newTime >= 0 ? newTime : 0);
+  };
+
+  
 
   return (
     <>
       <Box
         sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}
       >
-        <Typography variant="h3">{showTime(time)}</Typography>
+        {showTime(time)}
         <Box sx={{ mt: 1 }}>
           <button className="Stop" onClick={() => setTimerOn(false)}>
             <Typography
