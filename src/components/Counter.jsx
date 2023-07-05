@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, IconButton } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
 import "./Css/Counter.css";
 
 const addTime = (hr, min, sec) =>
   setTime((prevTime) => prevTime + toSeconds(hr, min, sec) * 1000);
 const subtractTime = (hr, min, sec) =>
   setTime((prevTime) => prevTime - toSeconds(hr, min, sec) * 1000);
+const Reset = () => {
+  setTime(0)
+  setTimerOn(false)
+  setOutput("00 : 00 . 00")
+};
 
 const showTime = (time) => {
   let miliseconds = ("0" + (Math.floor(time / 10) % 100)).slice(-2);
@@ -16,6 +22,19 @@ const showTime = (time) => {
   if (hours != "0")
     return `${hours} : ${minutes} : ${seconds} . ${miliseconds}`;
   return `${minutes} : ${seconds} . ${miliseconds}`;
+};
+
+const IconStyle = {
+  fontSize: "60px",
+  color: "green",
+  padding: "5px",
+  border: "3px solid red",
+  borderRadius: "50%",
+  "&:hover": {
+    color: "red",
+    backgroundColor: "pink",
+    borderRadius: "50%",
+  },
 };
 
 function Counter() {
@@ -43,7 +62,9 @@ function Counter() {
       <Box
         sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}
       >
-        <Typography variant="h3">{output}</Typography>
+        <Typography variant="h3" sx={{ color: "#C0C0C0" }}>
+          {output}
+        </Typography>
         <Box sx={{ mt: 1 }}>
           <button className="Stop" onClick={() => setTimerOn(false)}>
             <Typography
@@ -76,11 +97,14 @@ function Counter() {
         <Box>
           <button onClick={() => addTime(hr, min, sec)}>Add</button>
           <button onClick={() => subtractTime(hr, min, sec)}>Remove</button>
-          <button
-            onClick={() => {
+          <IconButton aria-label="delete" size="large">
+            <ClearIcon sx={IconStyle} onClick={() => {
               setTime(0);
               setTimerOn(false);
-            }}
+            }}/>
+          </IconButton>
+          <button
+            onClick={() => {Reset()}}
           >
             Clear
           </button>
