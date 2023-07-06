@@ -3,16 +3,6 @@ import { Box, Typography, Button, IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import "./Css/Counter.css";
 
-const addTime = (hr, min, sec) =>
-  setTime((prevTime) => prevTime + toSeconds(hr, min, sec) * 1000);
-const subtractTime = (hr, min, sec) =>
-  setTime((prevTime) => prevTime - toSeconds(hr, min, sec) * 1000);
-const Reset = () => {
-  setTime(0)
-  setTimerOn(false)
-  setOutput("00 : 00 . 00")
-};
-
 const showTime = (time) => {
   let miliseconds = ("0" + (Math.floor(time / 10) % 100)).slice(-2);
   let seconds = ("0" + (Math.floor(time / 1000) % 60)).slice(-2);
@@ -26,13 +16,14 @@ const showTime = (time) => {
 
 const IconStyle = {
   fontSize: "60px",
-  color: "green",
+  color: "#9BD27B",
   padding: "5px",
-  border: "3px solid red",
+  backgroundColor: "transparent",
+  border: "3.5px solid #9BD27B",
   borderRadius: "50%",
   "&:hover": {
-    color: "red",
-    backgroundColor: "pink",
+    color: "#FFFFFF",
+    backgroundColor: "#9BD27B",
     borderRadius: "50%",
   },
 };
@@ -41,6 +32,18 @@ function Counter() {
   const [time, setTime] = useState(0);
   const [timerOn, setTimerOn] = useState(false);
   const [output, setOutput] = useState("00 : 00 . 00");
+
+  const Reset = () => {
+    setTime(0);
+    setTimerOn(false);
+    setOutput("00 : 00 . 00");
+  };
+
+  const addTime = (hr, min, sec) =>
+    setTime((prevTime) => prevTime + toSeconds(hr, min, sec) * 1000);
+  const subtractTime = (hr, min, sec) =>
+    setTime((prevTime) => prevTime - toSeconds(hr, min, sec) * 1000);
+
   useEffect(() => {
     let interval = null;
     if (timerOn) {
@@ -53,7 +56,6 @@ function Counter() {
     } else if (!timerOn) {
       clearInterval(interval);
     }
-    console.log(time);
     return () => clearInterval(interval);
   }, [timerOn]);
 
@@ -95,19 +97,15 @@ function Counter() {
         <input value={min} onChange={(e) => setMin(e.target.value)} />
         <input value={sec} onChange={(e) => setSec(e.target.value)} /> */}
         <Box>
-          <button onClick={() => addTime(hr, min, sec)}>Add</button>
-          <button onClick={() => subtractTime(hr, min, sec)}>Remove</button>
-          <IconButton aria-label="delete" size="large">
-            <ClearIcon sx={IconStyle} onClick={() => {
-              setTime(0);
-              setTimerOn(false);
-            }}/>
+          <IconButton aria-label="delete" size="normal">
+            <ClearIcon sx={IconStyle} onClick={() => Reset()} />
           </IconButton>
-          <button
-            onClick={() => {Reset()}}
-          >
-            Clear
-          </button>
+          <IconButton aria-label="delete" size="normal">
+            <ClearIcon sx={IconStyle} onClick={() => Reset()} />
+          </IconButton>
+          <IconButton aria-label="delete" size="normal">
+            <ClearIcon sx={IconStyle} onClick={() => Reset()} />
+          </IconButton>
         </Box>
       </Box>
     </>
